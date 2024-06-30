@@ -1,0 +1,125 @@
+﻿<Window x:Class="MiniKanbanBoard.Views.HostWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MiniKanbanBoard"
+        xmlns:UC="clr-namespace:MiniKanbanBoard.Views.UserControls"
+        xmlns:vm="clr-namespace:MiniKanbanBoard.ViewModels"
+        mc:Ignorable="d"
+        
+        d:DataContext="{d:DesignInstance vm:HostWindowViewModel}"
+        Title="MiniKanbanBoard" Height="506" Width="900"
+        MouseDown="CustomDoubleClick"
+        WindowStyle="None"
+        UseLayoutRounding="True"
+        
+        Name="HostWindow"
+        MinWidth="240"
+        MinHeight="70"
+        FontSize="14">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Name="MenuRow" Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Menu Row-->
+        <Grid Grid.Row="0" MouseLeftButtonDown="DragWindow" Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="120"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Menu>
+                    <MenuItem Height="{Binding ElementName=MenuRow, Path=Height.Value}">
+                        <MenuItem.Icon>
+                            <Image Source="{StaticResource MenuIcon}"
+                                   Stretch="Fill" Margin="4,0,-8,0" Height="15"/>
+                        </MenuItem.Icon>
+                        <MenuItem Header="New"/>
+                        <MenuItem Header="Open"/>
+                        <MenuItem Header="Save"/>
+                        <MenuItem Header="Save As"/>
+                    </MenuItem>
+                </Menu>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Image />
+                <Label Content="MiniKanbanBoard"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Width="40" Click="Minimize_Click" Style="{StaticResource BorderlessButton}">
+                    <Image Source="{StaticResource Minimizeicon}"
+                           Margin="8,5,8,0">
+                    </Image>
+                </Button>
+                <Button Width="40" Click="Maximize_Click" Style="{StaticResource BorderlessButton}">
+                    <Image Source="{StaticResource MaximizeIcon}"
+                           Margin="4"/>
+                </Button>
+                <Button Width="40" Click="Close_Click" Style="{StaticResource BorderlessButton}">
+                    <Image Source="{StaticResource ExitIcon}"
+                           Margin="4"/>
+                </Button>
+            </StackPanel>
+            
+        </Grid>
+
+        <!--Board V2-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="80"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*" MinWidth="80"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*" MinWidth="80"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <UC:KanbanColumnUC Grid.Column="0" Grid.RowSpan="2"
+                               KanbanColumnEntity="{Binding TodoColumn}"
+                               AddCardCommand="{Binding AddToDoCardCommand}"
+                               RemoveThisCardCommand="{Binding RemoveTodoCardCommand}"/>
+           
+            <GridSplitter Grid.Column="1" Grid.Row="0"
+                          Width="1" HorizontalAlignment="Center"
+                          Background="{Binding DoingColumn.HeaderColor}"
+                          BorderBrush="{Binding DoingColumn.HeaderColor}"/>
+            <GridSplitter Grid.Column="1" Grid.Row="1"
+                          Width="1" HorizontalAlignment="Center"
+                          Background="{Binding DoingColumn.ContentColor}"
+                          BorderBrush="{Binding DoingColumn.ContentColor}"/>
+            
+            <UC:KanbanColumnUC Grid.Column="2" Grid.RowSpan="2"
+                               KanbanColumnEntity="{Binding DoingColumn}"
+                               AddCardCommand="{Binding AddDoingCardCommand}"
+                               RemoveThisCardCommand="{Binding RemoveDoingCardCommand}"/>
+            
+            <GridSplitter Grid.Column="3" Grid.Row="0"
+                          Width="1" HorizontalAlignment="Center"
+                          Background="{Binding DoneColumn.HeaderColor}"
+                          BorderBrush="{Binding DoneColumn.HeaderColor}"/>
+            <GridSplitter Grid.Column="3" Grid.Row="1" 
+                          Width="1" HorizontalAlignment="Center"
+                          Background="{Binding DoneColumn.ContentColor}"
+                          BorderBrush="{Binding DoneColumn.ContentColor}"/>
+            
+            <UC:KanbanColumnUC Grid.Column="4" Grid.RowSpan="2"
+                               KanbanColumnEntity="{Binding DoneColumn}"
+                               AddCardCommand="{Binding AddDoneCardCommand}"
+                               RemoveThisCardCommand="{Binding RemoveDoneCardCommand}"/>
+
+        </Grid>
+
+    </Grid>
+</Window>

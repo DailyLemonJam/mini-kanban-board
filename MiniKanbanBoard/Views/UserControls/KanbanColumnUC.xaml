@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="MiniKanbanBoard.Views.UserControls.KanbanColumnUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MiniKanbanBoard.Views.UserControls"
+             xmlns:entities="clr-namespace:MiniKanbanBoard.Entities"
+             xmlns:vm="clr-namespace:MiniKanbanBoard.ViewModels"
+             mc:Ignorable="d"
+             
+             d:DesignHeight="600" d:DesignWidth="300"
+             
+             Name="ThisColumnUC">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Top-->
+        <Grid Grid.Row="0" Background="{Binding ElementName=ThisColumnUC, Path=KanbanColumnEntity.HeaderColor}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Name-->
+            <Label Grid.Row="0" Content="{Binding ElementName=ThisColumnUC, Path=KanbanColumnEntity.Name}" 
+                   Margin="10,0,10,0" VerticalAlignment="Center" />
+
+            <!--Control buttons-->
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Width="40" Style="{StaticResource BorderlessButton}"
+                        Click="AddCard_Click">
+                    <Image Source="{StaticResource AddIcon}"
+                           Margin="0,10,0,10"/>
+                </Button>
+                <Button Width="40" Style="{StaticResource BorderlessButton}"
+                        Click="Settings_Click">
+                    <Image Name="SettingsImage" Source="{StaticResource DownIcon}"
+                           RenderTransformOrigin="0.5, 0.5"
+                           Margin="8"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!--Settings-->
+        <Grid Name="SettingsRow" Grid.Row="1" Visibility="Collapsed"
+              Background="{Binding ElementName=ThisColumnUC, Path=KanbanColumnEntity.HeaderColor}">
+            <StackPanel>
+                <Label Content="Settings here"/>
+                <Label Content="Settings here"/>
+                <Label Content="Settings here"/>
+            </StackPanel>
+        </Grid>
+
+        <!--Main Content-->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" 
+                      HorizontalScrollBarVisibility="Disabled"
+                      Background="{Binding ElementName=ThisColumnUC, Path=KanbanColumnEntity.ContentColor}">
+            <ItemsControl ItemsSource="{Binding ElementName=ThisColumnUC, Path=KanbanColumnEntity.KanbanCards}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:KanbanCardUC RemoveThisCardCommand="{Binding ElementName=ThisColumnUC, Path=RemoveThisCardCommand}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <BitmapImage x:Key="MenuIcon" UriSource="/Resources/Images/menu-icon.png"/>
+    <BitmapImage x:Key="ExitIcon" UriSource="/Resources/Images/exit-icon.png"/>
+    <BitmapImage x:Key="MaximizeIcon" UriSource="/Resources/Images/maximize-icon.png"/>
+    <BitmapImage x:Key="Minimizeicon" UriSource="/Resources/Images/minimize-icon.png"/>
+    <BitmapImage x:Key="LeftIcon" UriSource="/Resources/Images/left-icon.png"/>
+    <BitmapImage x:Key="RightIcon" UriSource="/Resources/Images/right-icon.png"/>
+    <BitmapImage x:Key="AddIcon" UriSource="/Resources/Images/add-icon.png"/>
+    <BitmapImage x:Key="SettingsIcon" UriSource="/Resources/Images/settings-icon.png"/>
+    <BitmapImage x:Key="DownIcon" UriSource="/Resources/Images/down-icon.png"/>
+    
+</ResourceDictionary>

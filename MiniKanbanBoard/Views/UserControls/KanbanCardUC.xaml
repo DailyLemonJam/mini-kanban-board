@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="MiniKanbanBoard.Views.UserControls.KanbanCardUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MiniKanbanBoard.Views.UserControls"
+             xmlns:entities="clr-namespace:MiniKanbanBoard.Entities"
+             mc:Ignorable="d" 
+             
+             d:DesignHeight="400" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance entities:KanbanCard}"
+             
+             Name="ThisCardUC">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="{Binding HeaderColor}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0" Text="{Binding Name}" VerticalAlignment="Center"
+                     Margin="15,0,10,0"/>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button Width="40" Style="{StaticResource BorderlessButton}"
+                        Click="RemoveThisCard">
+                    <Image Source="{StaticResource ExitIcon}" Margin="10"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Background="{Binding ContentColor}">
+            <TextBox Text="{Binding Content}" Style="{StaticResource CardContentTextBox}"
+                     Margin="15"/>
+        </Grid>
+
+    </Grid>
+</UserControl>
