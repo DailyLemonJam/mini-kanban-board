@@ -16,6 +16,25 @@ public partial class KanbanColumnUC : UserControl
         InitializeComponent();
     }
 
+    // Colors
+    private void HeaderColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+    {
+        if (e.NewValue != null)
+        {
+            TopRow.Background = new SolidColorBrush(e.NewValue.Value);
+            KanbanColumnEntity.HeaderColor = new SolidColorBrush(e.NewValue.Value);
+        }
+    }
+
+    private void ContentColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+    {
+        if (e.NewValue != null)
+        {
+            MainContent.Background = new SolidColorBrush(e.NewValue.Value);
+            KanbanColumnEntity.ContentColor = new SolidColorBrush(e.NewValue.Value);
+        }
+    }
+
     // ColumnEntity
     public static readonly DependencyProperty KanbanColumnEntityProperty = DependencyProperty.Register(nameof(KanbanColumnEntity),
         typeof(KanbanColumn), typeof(KanbanColumnUC));
