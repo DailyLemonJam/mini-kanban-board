@@ -16,6 +16,7 @@ public partial class HostWindowViewModel : ObservableObject
 
     public HostWindowViewModel(HostWindowModel model)
     {
+        // TODO Load Columns from Model
         _model = model;
 
         TodoColumn = new KanbanColumn
@@ -41,24 +42,48 @@ public partial class HostWindowViewModel : ObservableObject
             KanbanCards = [],
             HeaderColor = Brushes.IndianRed,
             ContentColor = Brushes.CadetBlue,
-        };;
+        };
     }
 
     [RelayCommand]
-    private void AddToDoCard() => TodoColumn.KanbanCards.Add(new KanbanCard());
+    private void AddToDoCard() => AddCard(TodoColumn);
 
     [RelayCommand]
-    private void AddDoingCard() => DoingColumn.KanbanCards.Add(new KanbanCard());
+    private void AddDoingCard() => AddCard(DoingColumn);
 
     [RelayCommand]
-    private void AddDoneCard() => DoneColumn.KanbanCards.Add(new KanbanCard());
+    private void AddDoneCard() => AddCard(DoneColumn);
+
+    private void AddCard(KanbanColumn kanbanColumn)
+    {
+        if (kanbanColumn.KanbanCards.Count > 0)
+        {
+            kanbanColumn.KanbanCards.Add(new KanbanCard
+            {
+                HeaderColor = kanbanColumn.KanbanCards[^1].HeaderColor,
+                ContentColor = kanbanColumn.KanbanCards[^1].ContentColor,
+            });
+            return;
+        }
+        var r = new Random();
+        kanbanColumn.KanbanCards.Add(new KanbanCard
+        {
+            HeaderColor = new SolidColorBrush(Color.FromRgb((byte)r.Next(1, 255), (byte)r.Next(1, 255), (byte)r.Next(1, 255))),
+            ContentColor = new SolidColorBrush(Color.FromRgb((byte)r.Next(1, 255), (byte)r.Next(1, 255), (byte)r.Next(1, 255)))
+        });
+    }
 
     [RelayCommand]
-    private void RemoveTodoCard(KanbanCard card) => TodoColumn.KanbanCards.Remove(card);
+    private void RemoveTodoCard(KanbanCard card) => RemoveCard(TodoColumn, card);
 
     [RelayCommand]
-    private void RemoveDoingCard(KanbanCard card) => DoingColumn.KanbanCards.Remove(card);
+    private void RemoveDoingCard(KanbanCard card) => RemoveCard(DoingColumn, card);
 
     [RelayCommand]
-    private void RemoveDoneCard(KanbanCard card) => DoneColumn.KanbanCards.Remove(card);
+    private void RemoveDoneCard(KanbanCard card) => RemoveCard(DoneColumn, card);
+
+    private void RemoveCard(KanbanColumn kanbanColumn, KanbanCard card)
+    {
+        kanbanColumn.KanbanCards.Remove(card);
+    }
 }

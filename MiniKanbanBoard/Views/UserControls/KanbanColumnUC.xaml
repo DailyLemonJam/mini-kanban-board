@@ -33,15 +33,15 @@
             <!--Control buttons-->
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Width="40" Style="{StaticResource BorderlessButton}"
-                        Click="AddCard_Click">
-                    <Image Source="{StaticResource AddIcon}"
-                           Margin="0,10,0,10"/>
-                </Button>
-                <Button Width="40" Style="{StaticResource BorderlessButton}"
                         Click="Settings_Click">
                     <Image Name="SettingsImage" Source="{StaticResource DownIcon}"
                            RenderTransformOrigin="0.5, 0.5"
                            Margin="8"/>
+                </Button>
+                <Button Width="40" Style="{StaticResource BorderlessButton}"
+                        Click="AddCard_Click">
+                    <Image Source="{StaticResource AddIcon}"
+                           Margin="0,10,0,10"/>
                 </Button>
             </StackPanel>
         </Grid>

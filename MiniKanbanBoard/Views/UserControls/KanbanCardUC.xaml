@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MiniKanbanBoard.Views.UserControls"
              xmlns:entities="clr-namespace:MiniKanbanBoard.Entities"
+             xmlns:xceedtoolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              
              d:DesignHeight="400" d:DesignWidth="300"
@@ -14,10 +15,12 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Background="{Binding HeaderColor}">
+        <!--Top Row-->
+        <Grid Name="TopRow" Grid.Row="0" Background="{Binding HeaderColor}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
@@ -28,13 +31,42 @@
 
             <StackPanel Grid.Column="1" Orientation="Horizontal">
                 <Button Width="40" Style="{StaticResource BorderlessButton}"
+                        Click="Settings_Click">
+                    <Image Name="SettingsImage" Source="{StaticResource DownIcon}" 
+                           RenderTransformOrigin="0.5, 0.5"
+                           Margin="8"/>
+                </Button>
+                <Button Width="40" Style="{StaticResource BorderlessButton}"
                         Click="RemoveThisCard">
                     <Image Source="{StaticResource ExitIcon}" Margin="10"/>
                 </Button>
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="1" Background="{Binding ContentColor}">
+        <!--Settings Row-->
+        <Grid Name="SettingsRow" Grid.Row="1" Visibility="Collapsed"
+              Background="{Binding HeaderColor}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Margin="10,0,0,0" Grid.Row="0" Grid.Column="0" Content="Header"/>
+                <xceedtoolkit:ColorPicker Grid.Row="0" Grid.Column="1" 
+                                          SelectedColorChanged="HeaderColorChanged"/>
+                <Label Margin="10,0,0,0" Grid.Row="1" Grid.Column="0" Content="Content"/>
+                <xceedtoolkit:ColorPicker Grid.Row="1" Grid.Column="1" 
+                                          SelectedColorChanged="ContentColorChanged"/>
+            </Grid>
+        </Grid>
+
+        <!--Main Content-->
+        <Grid Name="MainContent" Grid.Row="2" Background="{Binding ContentColor}">
             <TextBox Text="{Binding Content}" Style="{StaticResource CardContentTextBox}"
                      Margin="15"/>
         </Grid>
