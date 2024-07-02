@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MiniKanbanBoard.Views.UserControls"
              xmlns:entities="clr-namespace:MiniKanbanBoard.Entities"
              xmlns:vm="clr-namespace:MiniKanbanBoard.ViewModels"
-             xmlns:xtoolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:xceedtoolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              
              d:DesignHeight="600" d:DesignWidth="300"
@@ -55,14 +55,14 @@
                     <RowDefinition Height="0.5*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.25*"/>
-                    <ColumnDefinition Width="0.75*"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Margin="12,0,0,0" Grid.Row="0" Grid.Column="0" Content="Header: "/>
-                <xtoolkit:ColorPicker Grid.Row="0" Grid.Column="1" SelectedColorChanged="HeaderColorChanged"/>
-                <Label Margin="12,0,0,0" Grid.Row="1" Grid.Column="0" Content="Content: "/>
-                <xtoolkit:ColorPicker Grid.Row="1" Grid.Column="1" SelectedColorChanged="ContentColorChanged"/>
+                <Label Margin="10,0,0,0" Grid.Row="0" Grid.Column="0" Content="Header"/>
+                <xceedtoolkit:ColorPicker Grid.Row="0" Grid.Column="1" SelectedColorChanged="HeaderColorChanged"/>
+                <Label Margin="10,0,0,0" Grid.Row="1" Grid.Column="0" Content="Content"/>
+                <xceedtoolkit:ColorPicker Grid.Row="1" Grid.Column="1" SelectedColorChanged="ContentColorChanged"/>
             </Grid>
         </Grid>
 

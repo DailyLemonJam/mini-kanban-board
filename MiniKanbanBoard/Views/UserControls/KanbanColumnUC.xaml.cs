@@ -21,6 +21,7 @@ public partial class KanbanColumnUC : UserControl
     {
         if (e.NewValue != null)
         {
+            SettingsRow.Background = new SolidColorBrush(e.NewValue.Value);
             TopRow.Background = new SolidColorBrush(e.NewValue.Value);
             KanbanColumnEntity.HeaderColor = new SolidColorBrush(e.NewValue.Value);
         }

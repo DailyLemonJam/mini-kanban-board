@@ -15,9 +15,11 @@
         UseLayoutRounding="True"
         
         Name="HostWindow"
-        MinWidth="240"
+        MinWidth="246"
         MinHeight="70"
-        FontSize="14">
+        FontSize="14"
+        
+        Background="LightGray">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Name="MenuRow" Height="30"/>
@@ -27,9 +29,9 @@
         <!--Menu Row-->
         <Grid Grid.Row="0" MouseLeftButtonDown="DragWindow" Background="Transparent">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="123"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="123"/>
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" Orientation="Horizontal">
@@ -81,40 +83,24 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*" MinWidth="80"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
 
-            <UC:KanbanColumnUC Grid.Column="0" Grid.RowSpan="2"
+            <UC:KanbanColumnUC Grid.Column="0"
                                KanbanColumnEntity="{Binding TodoColumn}"
                                AddCardCommand="{Binding AddToDoCardCommand}"
                                RemoveThisCardCommand="{Binding RemoveTodoCardCommand}"/>
-           
-            <GridSplitter Grid.Column="1" Grid.Row="0"
-                          Width="1" HorizontalAlignment="Center"
-                          Background="{Binding DoingColumn.HeaderColor}"
-                          BorderBrush="{Binding DoingColumn.HeaderColor}"/>
-            <GridSplitter Grid.Column="1" Grid.Row="1"
-                          Width="1" HorizontalAlignment="Center"
-                          Background="{Binding DoingColumn.ContentColor}"
-                          BorderBrush="{Binding DoingColumn.ContentColor}"/>
-            
-            <UC:KanbanColumnUC Grid.Column="2" Grid.RowSpan="2"
+
+            <GridSplitter Grid.Column="1" Background="{Binding ElementName=HostWindow, Path=Background}"
+                          Width="3" HorizontalAlignment="Center"/>
+
+            <UC:KanbanColumnUC Grid.Column="2"
                                KanbanColumnEntity="{Binding DoingColumn}"
                                AddCardCommand="{Binding AddDoingCardCommand}"
                                RemoveThisCardCommand="{Binding RemoveDoingCardCommand}"/>
-            
-            <GridSplitter Grid.Column="3" Grid.Row="0"
-                          Width="1" HorizontalAlignment="Center"
-                          Background="{Binding DoneColumn.HeaderColor}"
-                          BorderBrush="{Binding DoneColumn.HeaderColor}"/>
-            <GridSplitter Grid.Column="3" Grid.Row="1" 
-                          Width="1" HorizontalAlignment="Center"
-                          Background="{Binding DoneColumn.ContentColor}"
-                          BorderBrush="{Binding DoneColumn.ContentColor}"/>
-            
-            <UC:KanbanColumnUC Grid.Column="4" Grid.RowSpan="2"
+
+            <GridSplitter Grid.Column="3" Background="{Binding ElementName=HostWindow, Path=Background}"
+                          Width="3" HorizontalAlignment="Center"/>
+
+            <UC:KanbanColumnUC Grid.Column="4"
                                KanbanColumnEntity="{Binding DoneColumn}"
                                AddCardCommand="{Binding AddDoneCardCommand}"
                                RemoveThisCardCommand="{Binding RemoveDoneCardCommand}"/>
