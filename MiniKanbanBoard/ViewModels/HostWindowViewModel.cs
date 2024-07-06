@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using MiniKanbanBoard.Entities;
 using MiniKanbanBoard.Models;
+using System.Diagnostics;
 using System.Windows.Media;
 
 namespace MiniKanbanBoard.ViewModels;
@@ -56,21 +57,22 @@ public partial class HostWindowViewModel : ObservableObject
 
     private void AddCard(KanbanColumn kanbanColumn)
     {
+        var newCard = new KanbanCard
+        {
+            Name = "Card Name",
+            Content = "Card Content"
+        };
         if (kanbanColumn.KanbanCards.Count > 0)
         {
-            kanbanColumn.KanbanCards.Add(new KanbanCard
-            {
-                HeaderColor = kanbanColumn.KanbanCards[^1].HeaderColor,
-                ContentColor = kanbanColumn.KanbanCards[^1].ContentColor,
-            });
+            newCard.HeaderColor = kanbanColumn.KanbanCards[^1].HeaderColor;
+            newCard.ContentColor = kanbanColumn.KanbanCards[^1].ContentColor;
+            kanbanColumn.KanbanCards.Add(newCard);
             return;
         }
         var r = new Random();
-        kanbanColumn.KanbanCards.Add(new KanbanCard
-        {
-            HeaderColor = new SolidColorBrush(Color.FromRgb((byte)r.Next(1, 255), (byte)r.Next(1, 255), (byte)r.Next(1, 255))),
-            ContentColor = new SolidColorBrush(Color.FromRgb((byte)r.Next(1, 255), (byte)r.Next(1, 255), (byte)r.Next(1, 255)))
-        });
+        newCard.HeaderColor = new SolidColorBrush(Color.FromRgb((byte)r.Next(1, 255), (byte)r.Next(1, 255), (byte)r.Next(1, 255)));
+        newCard.ContentColor = new SolidColorBrush(Color.FromRgb((byte)r.Next(1, 255), (byte)r.Next(1, 255), (byte)r.Next(1, 255)));
+        kanbanColumn.KanbanCards.Add(newCard);
     }
 
     [RelayCommand]
@@ -85,5 +87,25 @@ public partial class HostWindowViewModel : ObservableObject
     private void RemoveCard(KanbanColumn kanbanColumn, KanbanCard card)
     {
         kanbanColumn.KanbanCards.Remove(card);
+    }
+
+    // Menu commands
+    [RelayCommand]
+    private void FileNew()
+    {
+        Debug.WriteLine("FileNew");
+    }
+
+    [RelayCommand]
+    private void FileOpen()
+    {
+        Debug.WriteLine("FileOpen");
+    }
+
+    [RelayCommand]
+    private void FileSave()
+    {
+        // Save + Save As (decided in model)
+        Debug.WriteLine("FileSave");
     }
 }

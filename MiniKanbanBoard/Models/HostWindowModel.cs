@@ -6,4 +6,20 @@ public class HostWindowModel
     {
         
     }
+
+    public void FileNew()
+    {
+
+    }
+
+    public void FileOpen()
+    {
+
+    }
+    
+    public void FileSave()
+    {
+        // Save + Save As
+    }
+
 }
