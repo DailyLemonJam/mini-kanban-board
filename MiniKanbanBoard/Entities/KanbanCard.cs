@@ -8,8 +8,8 @@ public class KanbanCard
 
     public string Content { get; set; } = string.Empty;
 
-    public Brush ContentColor { get; set; } = Brushes.Aquamarine;
+    public Color ContentColor { get; set; } = Colors.Aquamarine;
 
-    public Brush HeaderColor { get; set; } = Brushes.Aqua;
+    public Color HeaderColor { get; set; } = Colors.Aqua;
 
 }

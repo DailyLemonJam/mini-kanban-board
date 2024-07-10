@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MiniKanbanBoard.DTOs;
 using MiniKanbanBoard.Entities;
+using MiniKanbanBoard.Enums;
 using MiniKanbanBoard.Models;
-using System.Diagnostics;
+using System.Windows;
 using System.Windows.Media;
 
 namespace MiniKanbanBoard.ViewModels;
@@ -11,13 +13,17 @@ public partial class HostWindowViewModel : ObservableObject
 {
     private readonly HostWindowModel _model;
 
-    public KanbanColumn TodoColumn { get; set; }
-    public KanbanColumn DoingColumn { get; set; }
-    public KanbanColumn DoneColumn { get; set; }
+    [ObservableProperty]
+    public KanbanColumn todoColumn;
+
+    [ObservableProperty]
+    public KanbanColumn doingColumn;
+
+    [ObservableProperty]
+    public KanbanColumn doneColumn;
 
     public HostWindowViewModel(HostWindowModel model)
     {
-        // TODO Load Columns from Model
         _model = model;
 
         TodoColumn = new KanbanColumn
@@ -27,22 +33,22 @@ public partial class HostWindowViewModel : ObservableObject
             [
                 new() { Name = "Card 1", Content = "Making this app" }
             ],
-            HeaderColor = Brushes.Aquamarine,
-            ContentColor = Brushes.Bisque,
+            HeaderColor = Colors.Aquamarine,
+            ContentColor = Colors.Bisque,
         };
         DoingColumn = new KanbanColumn
         {
             Name = "Doing",
             KanbanCards = [],
-            HeaderColor = Brushes.LightBlue,
-            ContentColor = Brushes.Pink,
+            HeaderColor = Colors.LightBlue,
+            ContentColor = Colors.Pink,
         };
         DoneColumn = new KanbanColumn
         {
             Name = "Done",
             KanbanCards = [],
-            HeaderColor = Brushes.IndianRed,
-            ContentColor = Brushes.CadetBlue,
+            HeaderColor = Colors.IndianRed,
+            ContentColor = Colors.CadetBlue,
         };
     }
 
@@ -70,8 +76,20 @@ public partial class HostWindowViewModel : ObservableObject
             return;
         }
         var r = new Random();
-        newCard.HeaderColor = new SolidColorBrush(Color.FromRgb((byte)r.Next(1, 255), (byte)r.Next(1, 255), (byte)r.Next(1, 255)));
-        newCard.ContentColor = new SolidColorBrush(Color.FromRgb((byte)r.Next(1, 255), (byte)r.Next(1, 255), (byte)r.Next(1, 255)));
+        newCard.HeaderColor = new Color
+        {
+            R = (byte)r.Next(0, 255),
+            G = (byte)r.Next(0, 255),
+            B = (byte)r.Next(0, 255),
+            ScA = 1.0f
+        };
+        newCard.ContentColor = new Color
+        {
+            R = (byte)r.Next(0, 255),
+            G = (byte)r.Next(0, 255),
+            B = (byte)r.Next(0, 255),
+            ScA = 1.0f
+        };
         kanbanColumn.KanbanCards.Add(newCard);
     }
 
@@ -93,19 +111,69 @@ public partial class HostWindowViewModel : ObservableObject
     [RelayCommand]
     private void FileNew()
     {
-        Debug.WriteLine("FileNew");
+        var userResponse = MessageBox.Show("Save board?", "New", MessageBoxButton.YesNoCancel);
+        if (userResponse == MessageBoxResult.Cancel)
+        {
+            return;
+        }
+        if (userResponse == MessageBoxResult.Yes)
+        {
+            var saveResponse = Save(SaveRequestType.Save);
+            if (!saveResponse.Success)
+            {
+                return;
+            }
+        }
+
+        _model.FileNew();
+        TodoColumn.KanbanCards.Clear();
+        DoingColumn.KanbanCards.Clear();
+        DoneColumn.KanbanCards.Clear();
     }
 
     [RelayCommand]
     private void FileOpen()
     {
-        Debug.WriteLine("FileOpen");
+        var userResponse = MessageBox.Show("Save board?", "Open", MessageBoxButton.YesNoCancel);
+        if (userResponse == MessageBoxResult.Cancel)
+        {
+            return;
+        }
+        if (userResponse == MessageBoxResult.Yes)
+        {
+            var saveResponse = Save(SaveRequestType.Save);
+            if (!saveResponse.Success)
+            {
+                return;
+            }
+        }
+
+        var response = _model.FileOpen();
+        if (response.IsSuccess)
+        {
+            TodoColumn = response.ToDoColumn;
+            DoingColumn = response.DoingColumn;
+            DoneColumn = response.DoneColumn;
+        }
     }
 
     [RelayCommand]
     private void FileSave()
     {
-        // Save + Save As (decided in model)
-        Debug.WriteLine("FileSave");
+        Save(SaveRequestType.Save);
     }
+
+    [RelayCommand]
+    private void FileSaveAs()
+    {
+        Save(SaveRequestType.SaveAs);
+    }
+
+    private FileSaveResponse Save(SaveRequestType saveRequestType)
+    {
+        var request = new SaveBoardRequest(saveRequestType, TodoColumn, DoingColumn, DoneColumn);
+        var response = _model.FileSave(request);
+        return response;
+    }
+
 }

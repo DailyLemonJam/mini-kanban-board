@@ -47,10 +47,11 @@ public partial class KanbanCardUC : UserControl
 
     private void HeaderColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
     {
-        var dc = (KanbanCard)DataContext;
+        var dataContext = (KanbanCard)DataContext;
         if (e.NewValue != null)
         {
-            dc.HeaderColor = new SolidColorBrush(e.NewValue.Value);
+            //dc.HeaderColor = new SolidColorBrush(e.NewValue.Value);
+            dataContext.HeaderColor = e.NewValue.Value;
             TopRow.Background = new SolidColorBrush(e.NewValue.Value);
             SettingsRow.Background = new SolidColorBrush(e.NewValue.Value);
         }
@@ -58,10 +59,11 @@ public partial class KanbanCardUC : UserControl
 
     private void ContentColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
     {
-        var dc = (KanbanCard)DataContext;
+        var dataContext = (KanbanCard)DataContext;
         if (e.NewValue != null)
         {
-            dc.ContentColor = new SolidColorBrush(e.NewValue.Value);
+            //dc.ContentColor = new SolidColorBrush(e.NewValue.Value);
+            dataContext.ContentColor = e.NewValue.Value;
             MainContent.Background = new SolidColorBrush(e.NewValue.Value);
         }
     }

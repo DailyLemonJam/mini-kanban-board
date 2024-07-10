@@ -1,5 +1,4 @@
 ﻿using MiniKanbanBoard.Entities;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -23,7 +22,8 @@ public partial class KanbanColumnUC : UserControl
         {
             SettingsRow.Background = new SolidColorBrush(e.NewValue.Value);
             TopRow.Background = new SolidColorBrush(e.NewValue.Value);
-            KanbanColumnEntity.HeaderColor = new SolidColorBrush(e.NewValue.Value);
+            KanbanColumnEntity.HeaderColor = e.NewValue.Value;
+            //KanbanColumnEntity.HeaderColor = new SolidColorBrush(e.NewValue.Value);
         }
     }
 
@@ -32,7 +32,8 @@ public partial class KanbanColumnUC : UserControl
         if (e.NewValue != null)
         {
             MainContent.Background = new SolidColorBrush(e.NewValue.Value);
-            KanbanColumnEntity.ContentColor = new SolidColorBrush(e.NewValue.Value);
+            KanbanColumnEntity.ContentColor = e.NewValue.Value;
+            //KanbanColumnEntity.ContentColor = new SolidColorBrush(e.NewValue.Value);
         }
     }
 

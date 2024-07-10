@@ -9,7 +9,7 @@ public class KanbanColumn
 
     public ObservableCollection<KanbanCard> KanbanCards { get; set; } = [];
 
-    public Brush ContentColor { get; set; } = Brushes.Aquamarine;
+    public Color ContentColor { get; set; } = Colors.Aquamarine;
 
-    public Brush HeaderColor { get; set; } = Brushes.Aqua;
+    public Color HeaderColor { get; set; } = Colors.Aqua;
 }

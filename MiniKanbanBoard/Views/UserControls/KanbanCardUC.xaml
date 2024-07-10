@@ -20,7 +20,10 @@
         </Grid.RowDefinitions>
 
         <!--Top Row-->
-        <Grid Name="TopRow" Grid.Row="0" Background="{Binding HeaderColor}">
+        <Grid Name="TopRow" Grid.Row="0">
+            <Grid.Background>
+                <SolidColorBrush Color="{Binding HeaderColor}"/>
+            </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
@@ -44,8 +47,10 @@
         </Grid>
 
         <!--Settings Row-->
-        <Grid Name="SettingsRow" Grid.Row="1" Visibility="Collapsed"
-              Background="{Binding HeaderColor}">
+        <Grid Name="SettingsRow" Grid.Row="1" Visibility="Collapsed">
+            <Grid.Background>
+                <SolidColorBrush Color="{Binding HeaderColor}"/>
+            </Grid.Background>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.5*"/>
@@ -66,7 +71,10 @@
         </Grid>
 
         <!--Main Content-->
-        <Grid Name="MainContent" Grid.Row="2" Background="{Binding ContentColor}">
+        <Grid Name="MainContent" Grid.Row="2">
+            <Grid.Background>
+                <SolidColorBrush Color="{Binding ContentColor}"/>
+            </Grid.Background>
             <TextBox Text="{Binding Content}" Style="{StaticResource CardContentTextBox}"
                      Margin="15"/>
         </Grid>

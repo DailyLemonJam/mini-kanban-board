@@ -44,7 +44,7 @@
                         <MenuItem Header="New" Command="{Binding FileNewCommand}"/>
                         <MenuItem Header="Open" Command="{Binding FileOpenCommand}"/>
                         <MenuItem Header="Save" Command="{Binding FileSaveCommand}"/>
-                        <MenuItem Header="Save As" Command="{Binding FileSaveCommand}"/>
+                        <MenuItem Header="Save As" Command="{Binding FileSaveAsCommand}"/>
                     </MenuItem>
                 </Menu>
             </StackPanel>

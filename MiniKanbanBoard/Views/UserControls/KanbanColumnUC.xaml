@@ -20,7 +20,10 @@
         </Grid.RowDefinitions>
 
         <!--Top-->
-        <Grid Name="TopRow" Grid.Row="0" Background="{Binding ElementName=ThisColumnUC, Path=KanbanColumnEntity.HeaderColor}">
+        <Grid Name="TopRow" Grid.Row="0">
+            <Grid.Background>
+                <SolidColorBrush Color="{Binding ElementName=ThisColumnUC, Path=KanbanColumnEntity.HeaderColor}"/>
+            </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
@@ -47,9 +50,11 @@
         </Grid>
 
         <!--Settings-->
-        <Grid Name="SettingsRow" Grid.Row="1" Visibility="Collapsed"
-              Background="{Binding ElementName=ThisColumnUC, Path=KanbanColumnEntity.HeaderColor}">
+        <Grid Name="SettingsRow" Grid.Row="1" Visibility="Collapsed">
             <Grid>
+                <Grid.Background>
+                    <SolidColorBrush Color="{Binding ElementName=ThisColumnUC, Path=KanbanColumnEntity.HeaderColor}"/>
+                </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.5*"/>
                     <RowDefinition Height="0.5*"/>
@@ -68,8 +73,10 @@
 
         <!--Main Content-->
         <ScrollViewer Name="MainContent" Grid.Row="2" VerticalScrollBarVisibility="Auto" 
-                      HorizontalScrollBarVisibility="Disabled"
-                      Background="{Binding ElementName=ThisColumnUC, Path=KanbanColumnEntity.ContentColor}">
+                      HorizontalScrollBarVisibility="Disabled">
+            <ScrollViewer.Background>
+                <SolidColorBrush Color="{Binding ElementName=ThisColumnUC, Path=KanbanColumnEntity.ContentColor}"/>
+            </ScrollViewer.Background>
             <ItemsControl ItemsSource="{Binding ElementName=ThisColumnUC, Path=KanbanColumnEntity.KanbanCards}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
